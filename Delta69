@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#232323">
+<title>DELTA69 — Лицензированный обмен валют в Таиланде</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#232323; --bg-2:#1F1F1F; --text:#FFFFFF; --text-2:#B5B8BD;
+  --cta:#8BC34A; --cta-hover:#6FAE3A; --cta-dark:#111;
+  --tg:#3B82F6; --wa:#25D366; --ig:#E1306C;
+  --orange:#ff7a00; /* яркий оранжевый баннера */
+  --tap-h:52px; --radius:14px; --maxw:1140px; --shadow:0 10px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans";
+  background:var(--bg); color:var(--text); line-height:1.5;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  padding-bottom:calc(100px + env(safe-area-inset-bottom));
+}
+a{color:inherit; text-decoration:none}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 16px}
+
+/* Header + nav */
+header{position:sticky; top:0; z-index:30; background:rgba(35,35,35,.92); backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.06)}
+.header-row{display:flex; align-items:center; justify-content:space-between; height:56px}
+.brand{display:flex; gap:10px; align-items:center; font-weight:700}
+.logo{width:22px; height:22px; border:3px solid var(--cta); transform:rotate(13deg) skewX(-6deg);
+  border-left-color:transparent; border-bottom-color:transparent; border-radius:3px}
+.brand-name{font-size:18px}
+.nav{display:flex; gap:12px; align-items:center}
+.nav a{padding:8px 10px; border-radius:10px; color:#ddd; font-weight:600}
+.nav a:hover{background:rgba(255,255,255,.08); color:#fff}
+.burger{display:none}
+
+@media (max-width:960px){
+  .actions{display:none}
+  .burger{display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); background:transparent; color:#fff; cursor:pointer}
+  .nav{display:none}
+  .nav.open{display:flex; position:fixed; top:56px; left:0; right:0; background:#151515; padding:12px 16px;
+    gap:8px; flex-wrap:wrap; border-bottom:1px solid rgba(255,255,255,.08)}
+}
+
+/* Buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  height:var(--tap-h); padding:0 18px; border:0; cursor:pointer; border-radius:var(--radius);
+  font-weight:700; font-size:16px; transition:.18s; white-space:nowrap}
+.btn-ghost{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.16)}
+.btn-cta{background:var(--cta); color:var(--cta-dark)}
+.btn-cta:hover{background:var(--cta-hover)}
+.btn-wa{background:var(--wa); color:#fff}
+.btn-tg{background:var(--tg); color:#fff}
+.btn-ig{background:var(--ig); color:#fff}
+.btn-block{width:100%}
+.small{height:40px; font-size:14px}
+
+/* Hero */
+.hero{padding:18px 0 8px;}
+h1{font-size:28px; line-height:1.25; margin:6px 0 6px}
+.sub{color:var(--text-2); margin:0 0 6px}
+.lic{color:#9ad3ff; font-weight:700; margin:0 0 10px}
+.cta-row{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0 16px}
+@media (min-width:720px){ .cta-row{grid-template-columns:1.2fr 1fr 1fr 1.2fr} }
+
+/* Panel + (НЕ ТРОГАЕМ) калькулятор */
+.panel{background:var(--bg-2); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:16px; box-shadow:var(--shadow)}
+.calc-grid{display:grid; grid-template-columns:1fr; gap:12px}
+.field{display:flex; flex-direction:column; gap:8px}
+.field label{color:var(--text-2); font-size:14px}
+.input{
+  display:flex; align-items:center; gap:8px; height:56px; border-radius:12px;
+  background:#141414; border:1px solid rgba(255,255,255,.16); padding:0 10px; font-size:18px;
+}
+.input input{flex:1 1 auto; min-width:0; background:transparent; border:0; outline:0; color:var(--text); font-size:18px}
+.select{
+  flex:0 0 104px; width:104px; appearance:none; background:#1C1C1C; border:0; color:#fff;
+  height:44px; padding:0 12px; border-radius:10px; font-size:16px;
+}
+
+/* Баннер фиксации — (оставляем как был, стили совпадают) */
+.hold-banner{
+  margin-top:12px; border:2px solid var(--orange); border-radius:16px;
+  padding:12px 14px; background:linear-gradient(180deg, rgba(255,122,0,.22), rgba(255,122,0,.14));
+  box-shadow:0 10px 24px rgba(255,122,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
+  display:flex; flex-direction:column; gap:10px
+}
+.hold-row{display:flex; align-items:center; gap:10px; font-weight:800}
+.hold-row .dot{width:12px; height:12px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 3px rgba(255,122,0,.28), 0 0 14px rgba(255,122,0,.95)}
+.hold-actions{display:flex; gap:8px; flex-wrap:wrap}
+.btn-badge{
+  height:40px; padding:0 14px; border-radius:12px; border:1px solid rgba(255,122,0,.7);
+  background:rgba(255,122,0,.18); color:#fff; font-weight:800; cursor:default
+}
+.hidden{display:none}
+
+/* Две CTA под расчётом (оставляем как было) */
+.two-ctas{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px}
+@media (max-width:360px){ .two-ctas{grid-template-columns:1fr} }
+
+/* ===== Раздел КУРСОВ ===== */
+.section{padding:20px 0}
+.section h2{margin:0 0 12px; font-size:24px}
+.rates-toolbar{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:space-between}
+.pills{display:flex; gap:8px; flex-wrap:wrap}
+.pill{height:40px; padding:0 14px; border-radius:999px; border:1px solid rgba(255,255,255,.16);
+  background:#151515; color:#fff; font-weight:700; cursor:pointer}
+.pill.active{background:var(--cta); color:var(--cta-dark); border-color:transparent}
+.updated{color:var(--text-2); font-size:13px}
+.rates{margin-top:10px; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden}
+.rates table{width:100%; border-collapse:collapse; font-size:16px}
+.rates th, .rates td{padding:12px 10px; border-bottom:1px solid rgba(255,255,255,.06)}
+.rates th{background:#141414; color:#bbb; text-align:left; font-weight:600}
+.rates tr:hover{background:#101010; cursor:pointer}
+.show-more{margin-top:10px}
+
+/* Блок доверия + карта */
+.trust{display:grid; gap:16px; grid-template-columns:1.2fr 1fr; align-items:stretch}
+.trust .list{display:grid; gap:10px}
+.trust .item{display:flex; gap:10px; align-items:center; background:#141414; border:1px solid rgba(255,255,255,.08);
+  padding:12px; border-radius:12px}
+.i-check{flex:0 0 22px; height:22px; border-radius:6px; background:var(--cta);
+  display:inline-flex; align-items:center; justify-content:center; color:var(--cta-dark); font-weight:700; font-size:14px}
+.address{color:var(--text-2); font-size:13px; margin-top:6px}
+.map-btn{display:inline-flex; align-items:center; justify-content:center; height:44px; padding:0 14px; border-radius:12px;
+  border:1px solid rgba(255,255,255,.14); background:#131313; color:#fff; font-weight:700; margin-top:8px}
+
+/* Галерея */
+.gallery{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.gallery .ph{height:140px; background:#111; border:1px solid rgba(255,255,255,.08); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; color:#777}
+@media (min-width:820px){ .gallery{grid-template-columns:repeat(4,1fr)} }
+
+/* Отзывы */
+.reviews{overflow:hidden; position:relative}
+.track{display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:4px}
+.card{min-width:280px; max-width:320px; scroll-snap-align:start; background:#141414; border:1px solid rgba(255,255,255,.08);
+  border-radius:14px; padding:14px}
+.stars{color:#ffd166; margin-bottom:8px}
+
+/* FAQ */
+.faq details{background:#141414; border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px 14px; margin:10px 0}
+.faq summary{list-style:none; cursor:pointer; font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq .answer{margin-top:8px; color:#dcdcdc}
+
+/* Docs */
+.docs{display:grid; grid-template-columns:1fr; gap:10px}
+.doc{background:#141414; border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:12px}
+.doc .t{font-weight:700}
+.doc .a{color:var(--text-2); font-size:13px}
+
+/* Footer + Sticky */
+footer{border-top:1px solid rgba(255,255,255,.08); margin-top:24px}
+.footer-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; padding:16px 0; color:var(--text-2); font-size:13px}
+.links{display:flex; gap:12px; flex-wrap:wrap}
+
+.sticky{
+  position:fixed; bottom:0; left:0; right:0; z-index:25; background:rgba(20,20,20,.96);
+  backdrop-filter:blur(6px); border-top:1px solid rgba(255,255,255,.08);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom))
+}
+.sticky .wrap{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.sticky .btn{height:var(--tap-h)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div class="brand-name">DELTA69</div>
+    </div>
+
+    <nav class="nav" id="topNav">
+      <a href="#home">Главная</a>
+      <a href="#rates">Курсы</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#docs">Документы</a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+
+    <div class="actions">
+      <a class="btn btn-ghost" href="tel:+66620091887">+66&nbsp;62&nbsp;009&nbsp;1887</a>
+      <a class="btn btn-tg" href="https://t.me/Delta69_Office" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn btn-wa" href="https://wa.me/66961689130" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="wrap">
+      <h1>Лицензированный обмен валют в Таиланде</h1>
+      <p class="sub">Принимаем карты «Мир», QR-платежи (СБП/Thai QR)</p>
+      <div class="lic">Лицензия BOT № MC325/100026</div>
+
+      <!-- CTA из ТЗ: Рассчитать | WhatsApp | Telegram | Построить маршрут -->
+      <div class="cta-row">
+        <a class="btn btn-cta" href="#calc">Рассчитать</a>
+        <a class="btn btn-wa" href="https://wa.me/66961689130" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-tg" href="https://t.me/Delta69_Office" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&destination=118%2F17%20PhraBaramee%20Rd%2C%20Patong&travelmode=driving" target="_blank" rel="noopener">Построить маршрут</a>
+      </div>
+
+      <!-- ===== НЕ МЕНЯЕМ КАЛЬКУЛЯТОР (последняя версия) ===== -->
+      <div class="panel" id="calc" aria-labelledby="calc-title">
+        <div id="calc-title" class="subtitle" style="margin:0 0 8px">Калькулятор обмена</div>
+
+        <div class="calc-grid">
+          <div class="field">
+            <label for="amountGive">Вы отдаёте</label>
+            <div class="input">
+              <input id="amountGive" inputmode="decimal" placeholder="10000" value="10000" aria-label="Сумма к обмену">
+              <select id="curFrom" class="select" aria-label="Валюта которую отдаёте">
+                <option value="RUB" selected>RUB 🇷🇺</option>
+                <option value="USD">USD 🇺🇸</option>
+                <option value="EUR">EUR 🇪🇺</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="amountGet">Вы получаете</label>
+            <div class="input">
+              <input id="amountGet" inputmode="decimal" placeholder="0" value="0" aria-label="Сумма к получению">
+              <select id="curTo" class="select" aria-label="Валюта которую получаете">
+                <option value="THB" selected>THB 🇹🇭</option>
+                <option value="USD">USD 🇺🇸</option>
+                <option value="EUR">EUR 🇪🇺</option>
+                <option value="RUB">RUB 🇷🇺</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1) РАССЧИТАТЬ — на всю ширину -->
+        <div class="calc-actions" style="margin-top:10px">
+          <button class="btn btn-cta btn-block" id="btnCalc">Рассчитать</button>
+        </div>
+
+        <!-- 2) Две кнопки «Обменять» ниже -->
+        <div class="two-ctas">
+          <button class="btn btn-wa" id="btnBuyWA">Обменять в WhatsApp</button>
+          <button class="btn btn-tg" id="btnBuyTG">Обменять в Telegram</button>
+        </div>
+
+        <!-- Баннер фиксации -->
+        <div class="hold-banner hidden" id="holdBanner" role="status" aria-live="polite">
+          <div class="hold-row">
+            <span class="dot" aria-hidden="true"></span>
+            Курс зафиксирован на <span id="holdLeft">10:00</span>. До <span id="holdUntil"></span>
+          </div>
+          <div class="hold-row" id="holdOrder"></div>
+          <div class="hold-row" id="holdSummary"></div>
+          <div class="hold-actions">
+            <button class="btn-badge small" disabled>Курс забронирован</button>
+            <button class="btn-ghost small" id="holdCancel">Отменить</button>
+          </div>
+        </div>
+      </div>
+      <!-- ===== /КАЛЬКУЛЯТОР ===== -->
+
+    </div>
+  </section>
+
+  <!-- ===== КУРСЫ ВАЛЮТ (таблица + фильтр + обновлено) ===== -->
+  <section class="section" id="rates">
+    <div class="wrap">
+      <h2>Курсы валют</h2>
+      <div class="rates-toolbar">
+        <div class="pills" role="tablist">
+          <button class="pill active" data-filter="all">Все</button>
+          <button class="pill" data-filter="THB">к THB</button>
+          <button class="pill" data-filter="RUB">к RUB</button>
+        </div>
+        <div class="updated">🔄 Обновлено: <span id="ratesUpdated">--:--</span></div>
+      </div>
+
+      <div class="rates">
+        <table id="ratesTable" aria-label="Таблица курсов">
+          <thead>
+            <tr><th>Пара</th><th>Покупка</th><th>Продажа</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="show-more">
+        <button class="btn btn-ghost small" id="btnMore">Показать все валюты</button>
+      </div>
+      <p style="color:#9aa; font-size:13px; margin-top:8px">Нажмите на пару — она подставится в калькулятор.</p>
+    </div>
+  </section>
+
+  <!-- ===== БЛОК ДОВЕРИЯ + МАРШРУТ ===== -->
+  <section class="section">
+    <div class="wrap trust">
+      <div class="list">
+        <div class="item"><span class="i-check">✓</span><strong>5000+ клиентов</strong> в 2024 году</div>
+        <div class="item"><span class="i-check">✓</span>Официально работаем по лицензии BOT</div>
+        <div class="item" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span class="i-check" aria-hidden="true">✓</span>
+            <div style="font-weight:600">Наш офис в Патонге</div>
+          </div>
+          <a class="map-btn"
+             href="https://www.google.com/maps/dir/?api=1&destination=118%2F17%20PhraBaramee%20Rd%2C%20Patong&travelmode=driving"
+             target="_blank" rel="noopener">📍 Построить маршрут</a>
+          <div class="address">118/17 PhraBaramee Rd, Patong</div>
+        </div>
+      </div>
+      <div>
+        <div class="gallery">
+          <div class="ph">Фото фасада офиса</div>
+          <div class="ph">Фото кассы</div>
+          <div class="ph">Фото лицензии</div>
+          <div class="ph">Фото клиентов</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ОТЗЫВЫ ===== -->
+  <section class="section" id="reviews">
+    <div class="wrap">
+      <h2>Отзывы клиентов <span style="color:#ffd166">★★★★★</span> 4.9 (200+)</h2>
+      <div class="reviews">
+        <div class="track" id="reviewsTrack" tabindex="0" aria-label="Слайдер отзывов">
+          <div class="card"><div class="stars">★★★★★</div>Быстро, честный курс, ребята помогли с маршрутом. Рекомендую!</div>
+          <div class="card"><div class="stars">★★★★★</div>Фиксация курса на сайте — супер. Пришёл и получил ровно столько, сколько посчитали.</div>
+          <div class="card"><div class="stars">★★★★☆</div>Отличный сервис, рядом с отелем. Чуть очередь, но всё ок.</div>
+          <div class="card"><div class="stars">★★★★★</div>Принимают карту «Мир», перевод по QR — очень удобно!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section faq" id="faq">
+    <div class="wrap">
+      <h2>Частые вопросы</h2>
+      <details open>
+        <summary>Как часто обновляются курсы?</summary>
+        <div class="answer">Курсы обновляются онлайн каждые несколько минут.</div>
+      </details>
+      <details>
+        <summary>Принимаете ли карты «Мир» и переводы по QR?</summary>
+        <div class="answer">Да, принимаем карту «Мир» и платежи по QR (СБП/Thai QR).</div>
+      </details>
+      <details>
+        <summary>Можно ли зафиксировать курс заранее онлайн?</summary>
+        <div class="answer">Да. Нажмите «Рассчитать» — появится баннер фиксации, действующий ограниченное время.</div>
+      </details>
+      <a class="btn btn-ghost small" href="#contacts" style="margin-top:8px">Смотреть все вопросы</a>
+    </div>
+  </section>
+
+  <!-- ===== ДОКУМЕНТЫ ===== -->
+  <section class="section" id="docs">
+    <div class="wrap">
+      <h2>Документы</h2>
+      <div class="docs">
+        <div class="doc">
+          <div class="t">Проект договора по оплате аренды (пример)</div>
+          <div class="a">Загрузите свой PDF и укажите ссылку — файл откроется в новом окне.</div>
+          <a class="btn btn-ghost small" href="#" target="_blank" rel="noopener">Скачать PDF</a>
+        </div>
+        <div class="doc">
+          <div class="t">Политика AML/KYC</div>
+          <div class="a">Информация о противодействии отмыванию средств и идентификации клиентов.</div>
+          <a class="btn btn-ghost small" href="#" target="_blank" rel="noopener">Скачать PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== КОНТАКТЫ ===== -->
+  <section class="section" id="contacts">
+    <div class="wrap">
+      <h2>Контакты</h2>
+      <p>Телефон: <a href="tel:+66620091887">+66 62 009 1887</a></p>
+      <p>Telegram: <a href="https://t.me/Delta69_Office" target="_blank" rel="noopener">@Delta69_Office</a>,
+         WhatsApp: <a href="https://wa.me/66961689130" target="_blank" rel="noopener">+66 96 168 9130</a></p>
+      <p>Адрес: 118/17 PhraBaramee Rd, Patong</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>© 2025 Delta69 — Лицензия Банка Таиланда № MC225670050</div>
+    <div class="links">
+      <a href="#home">Главная</a>
+      <a href="#rates">Курсы</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contacts">Контакты</a>
+      <a href="#docs">Документы</a>
+      <a href="https://t.me/Delta69_Office" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://wa.me/66961689130" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Нижняя плашка (быстрый доступ к мессенджерам) -->
+<div class="sticky" role="region" aria-label="Быстрые действия">
+  <div class="wrap">
+    <a class="btn btn-tg" href="https://t.me/Delta69_Office" target="_blank" rel="noopener">Telegram</a>
+    <a class="btn btn-wa" href="https://wa.me/66961689130" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</div>
+
+<script>
+/* ======= Лёгкое меню ========= */
+document.getElementById('burger')?.addEventListener('click',()=>{
+  const nav=document.getElementById('topNav'); nav.classList.toggle('open');
+});
+
+/* ======= (НЕ МЕНЯЕМ) МОДЕЛЬ калькулятора — твоя последняя версия ======= */
+const baseRates={RUB:0.043, USD:36.5, EUR:39.7, THB:1.0};
+const hiddenMargin=0.07;
+
+const giveEl=document.getElementById('amountGive');
+const getEl=document.getElementById('amountGet');
+const fromEl=document.getElementById('curFrom');
+const toEl=document.getElementById('curTo');
+
+const btnCalc=document.getElementById('btnCalc');
+const btnBuyWA=document.getElementById('btnBuyWA');
+const btnBuyTG=document.getElementById('btnBuyTG');
+
+const holdBanner=document.getElementById('holdBanner');
+const holdLeft=document.getElementById('holdLeft');
+const holdUntil=document.getElementById('holdUntil');
+const holdCancel=document.getElementById('holdCancel');
+const holdOrder=document.getElementById('holdOrder');
+const holdSummary=document.getElementById('holdSummary');
+
+let holdEndTs=null, holdTimer=null;
+let lockedQuote=null; // {id, amount, from, to, result}
+
+function format2(n){const v=isFinite(n)?n:0;return v.toLocaleString('ru-RU',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function compute(){const amount=parseFloat((giveEl.value||'0').replace(',','.'));const f=baseRates[fromEl.value], t=baseRates[toEl.value];if(!f||!t){getEl.value='0,00';return;}const thb=amount*f*(1-hiddenMargin);getEl.value=format2(thb/t);}
+function pad(n,len){return String(n).padStart(len,'0');}
+function todayStr(){const d=new Date();return d.getFullYear()+pad(d.getMonth()+1,2)+pad(d.getDate(),2);}
+function nextOrderId(){const today=todayStr();const lastDate=localStorage.getItem('delta69_seq_date')||'';let seq=parseInt(localStorage.getItem('delta69_seq')||'0',10);if(lastDate!==today){seq=0;}seq++;localStorage.setItem('delta69_seq',String(seq));localStorage.setItem('delta69_seq_date',today);return `D69-${today}-${pad(seq,3)}`;}
+
+function lockCurrentQuoteFromUI(){
+  let id = lockedQuote && lockedQuote.id && holdEndTs && holdEndTs>Date.now() ? lockedQuote.id : nextOrderId();
+  lockedQuote={ id, amount:(giveEl.value||'').toString().trim(), from:fromEl.value, to:toEl.value, result:(getEl.value||'').toString().trim() };
+  localStorage.setItem('delta69_hold_quote', JSON.stringify(lockedQuote));
+  renderHoldSummary();
+}
+function renderHoldSummary(){
+  if(!lockedQuote){ holdOrder.textContent=''; holdSummary.textContent=''; return; }
+  holdOrder.textContent=`Заявка № ${lockedQuote.id}`;
+  holdSummary.textContent=`Обмен: ${lockedQuote.amount} ${lockedQuote.from} → ${lockedQuote.result} ${lockedQuote.to}.  Вы получите: ${lockedQuote.result} ${lockedQuote.to}`;
+}
+
+function buildMessage(channel){
+  const now=Date.now();
+  const holdActive=holdEndTs && holdEndTs>now && lockedQuote;
+  const id=holdActive&&lockedQuote.id?lockedQuote.id:'без номера';
+  const amount=holdActive?lockedQuote.amount:(giveEl.value||'').trim();
+  const result=holdActive?lockedQuote.result:(getEl.value||'').trim();
+  const from=holdActive?lockedQuote.from:fromEl.value;
+  const to=holdActive?lockedQuote.to:toEl.value;
+  const until=holdActive?new Date(holdEndTs).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}):'—';
+  return `Здравствуйте! Заявка № ${id}
+Обмен: ${amount} ${from} → ${result} ${to}
+Курс зафиксирован до ${until}.
+Готов подъехать сегодня. Спасибо!`;
+}
+async function openWA(){const msg=encodeURIComponent(buildMessage('wa')); window.open("https://wa.me/66961689130?text="+msg,"_blank");}
+async function openTG(){
+  const raw=buildMessage('tg');
+  try{ await navigator.clipboard.writeText(raw); alert('Текст заявки скопирован — открываем Telegram, просто вставьте его в чат.'); }catch(e){ alert('Скопируйте текст заявки:\n\n'+raw); }
+  window.open("https://t.me/Delta69_Office","_blank");
+}
+
+function startHold(minutes=10){holdEndTs=Date.now()+minutes*60*1000; localStorage.setItem('delta69_hold_until',holdEndTs); holdBanner.classList.remove('hidden'); updateHoldUI(); holdTimer&&clearInterval(holdTimer); holdTimer=setInterval(updateHoldUI,1000);}
+function clearHold(){holdEndTs=null; localStorage.removeItem('delta69_hold_until'); holdBanner.classList.add('hidden'); holdTimer&&clearInterval(holdTimer); lockedQuote=null; localStorage.removeItem('delta69_hold_quote'); renderHoldSummary();}
+function updateHoldUI(){if(!holdEndTs) return; const left=Math.max(0,holdEndTs-Date.now()); const m=Math.floor(left/60000), s=Math.floor((left%60000)/1000); holdLeft.textContent=`${pad(m,2)}:${pad(s,2)}`; const dt=new Date(holdEndTs); holdUntil.textContent=dt.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}); if(left<=0){ clearHold(); alert('Время фиксации истекло. Пересчитайте курс.'); }}
+
+holdCancel?.addEventListener('click', clearHold);
+btnCalc.addEventListener('click', ()=>{ compute(); lockCurrentQuoteFromUI(); startHold(10); });
+[giveEl, getEl].forEach(el=>{ el.addEventListener('keydown',e=>{ if(e.key==='Enter'){ btnCalc.click(); } }); });
+btnBuyWA.addEventListener('click', ()=>{ compute(); openWA(); });
+btnBuyTG.addEventListener('click', ()=>{ compute(); openTG(); });
+
+(function restore(){
+  const ts=parseInt(localStorage.getItem('delta69_hold_until')||'0',10);
+  if(ts && ts>Date.now()){ holdEndTs=ts; holdBanner.classList.remove('hidden'); holdTimer=setInterval(updateHoldUI,1000); updateHoldUI(); }
+  try{ const saved=localStorage.getItem('delta69_hold_quote'); if(saved){ lockedQuote=JSON.parse(saved); renderHoldSummary(); } }catch(e){ lockedQuote=null; localStorage.removeItem('delta69_hold_quote'); }
+})();
+compute();
+/* ======= /калькулятор ======= */
+
+/* ======= КУРСЫ: данные (пример, можно заменить на API) ======= */
+const ratesBoardData=[
+  {pair:"AED/THB", buy:8.377, sell:8.925},
+  {pair:"USD/THB", buy:31.264, sell:32.216},
+  {pair:"EUR/THB", buy:33.952, sell:34.880},
+  {pair:"USD/RUB", buy:82.291, sell:86.069},
+  {pair:"EUR/RUB", buy:96.472, sell:100.410},
+  {pair:"THB/RUB", buy:2.434, sell:2.862},
+  {pair:"RUB/THB", buy:0.35,  sell:0.41},
+  {pair:"EUR/USD", buy:1.07,  sell:1.09}
+];
+
+const ratesTBody=document.querySelector('#ratesTable tbody');
+const updatedEl=document.getElementById('ratesUpdated');
+const pills=[...document.querySelectorAll('.pill')];
+const btnMore=document.getElementById('btnMore');
+let currentFilter='all', showAll=false;
+
+function renderRates(){
+  updatedEl.textContent=new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+  ratesTBody.innerHTML='';
+  const data=ratesBoardData.filter(row=>{
+    if(currentFilter==='all') return true;
+    const [,to]=row.pair.split('/');
+    return to===currentFilter;
+  });
+  const limited = showAll?data:data.slice(0,6);
+  limited.forEach(row=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${row.pair}</td><td>${row.buy}</td><td>${row.sell}</td>`;
+    tr.addEventListener('click',()=>{
+      const [from,to]=row.pair.split('/');
+      fromEl.value=from; toEl.value=to; compute();
+      document.getElementById('calc').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    ratesTBody.appendChild(tr);
+  });
+  btnMore.textContent = showAll ? 'Скрыть' : 'Показать все валюты';
+}
+pills.forEach(p=>p.addEventListener('click',()=>{ pills.forEach(x=>x.classList.remove('active')); p.classList.add('active'); currentFilter=p.dataset.filter; renderRates(); }));
+btnMore.addEventListener('click',()=>{ showAll=!showAll; renderRates(); });
+renderRates();
+
+/* Лёгкая авто-прокрутка отзывов */
+const track=document.getElementById('reviewsTrack');
+let autoScroll=setInterval(()=>{ track.scrollBy({left:320, behavior:'smooth'}); if(track.scrollLeft+track.clientWidth>=track.scrollWidth-2){ track.scrollTo({left:0,behavior:'smooth'});} },3500);
+track.addEventListener('mouseenter',()=>clearInterval(autoScroll));
+track.addEventListener('mouseleave',()=>autoScroll=setInterval(()=>{ track.scrollBy({left:320, behavior:'smooth'}); if(track.scrollLeft+track.clientWidth>=track.scrollWidth-2){ track.scrollTo({left:0,behavior:'smooth'});} },3500));
+</script>
+</body>
+</html>
