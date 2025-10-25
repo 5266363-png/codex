@@ -125,7 +125,7 @@ export const io = new Server(httpServer, {
   }
 });
 
-aio.on('connection', (socket) => {
+io.on('connection', (socket) => {
   socket.on('subscribe_table', (tableId) => {
     if (tableId) {
       socket.join(`table:${tableId}`);
