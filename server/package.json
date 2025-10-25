@@ -1,0 +1,23 @@
+{
+  "name": "sober-meet-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Sober Meet backend server",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "NODE_ENV=test vitest run"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.4",
+    "vitest": "^1.6.0"
+  }
+}
