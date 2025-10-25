@@ -1,0 +1,19 @@
+{
+  "name": "codex-server",
+  "version": "0.1.0",
+  "description": "Simple Express server with health endpoint.",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js",
+    "start": "node src/index.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1",
+    "vitest": "^2.1.8"
+  }
+}
