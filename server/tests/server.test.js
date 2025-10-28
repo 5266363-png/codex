@@ -41,6 +41,12 @@ describe('Sober Meet server', () => {
     setCleanupInterval(0);
   });
 
+  it('exposes socket connection handlers', () => {
+    const listeners = io.listeners('connection');
+    expect(Array.isArray(listeners)).toBe(true);
+    expect(listeners.length).toBeGreaterThan(0);
+  });
+
   afterAll(async () => {
     setCleanupInterval(0);
     await cleanupExpiredEntries();
